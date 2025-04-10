@@ -18,7 +18,7 @@ export default function TypeBar() {
         <Card variant="outlined" sx={{ width: "100%" }}>
             <CardContent>
                 <Typography component="h2" variant="subtitle2" gutterBottom>
-                    Page views and downloads
+                    Claim Type
                 </Typography>
                 <Stack sx={{ justifyContent: "space-between" }}>
                     <Stack
@@ -38,7 +38,7 @@ export default function TypeBar() {
                         variant="caption"
                         sx={{ color: "text.secondary" }}
                     >
-                        Page views and downloads for the last 6 months
+                        Claim types for the last 12 months
                     </Typography>
                 </Stack>
                 <BarChart
@@ -57,6 +57,11 @@ export default function TypeBar() {
                                     "May",
                                     "Jun",
                                     "Jul",
+                                    "Aug",
+                                    "Sep",
+                                    "Oct",
+                                    "Nov",
+                                    "Dec",
                                 ],
                             },
                         ] as any
@@ -64,22 +69,28 @@ export default function TypeBar() {
                     series={[
                         {
                             id: "page-views",
-                            label: "Page views",
-                            data: [2234, 3872, 2998, 4125, 3357, 2789, 2998],
+                            label: "In-paitent",
+                            data: [
+                                2234, 3872, 2998, 4125, 3357, 2789, 2998, 1122,
+                                3334, 6553, 3234, 1233,
+                            ],
                             stack: "A",
                         },
                         {
                             id: "downloads",
-                            label: "Downloads",
-                            data: [3098, 4215, 2384, 2101, 4752, 3593, 2384],
+                            label: "Out-paitent",
+                            data: [
+                                3098, 4215, 2384, 2101, 4752, 3593, 2384, 122,
+                                2334, 1444, 555, 1643,
+                            ],
                             stack: "A",
                         },
-                        {
-                            id: "conversions",
-                            label: "Conversions",
-                            data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
-                            stack: "A",
-                        },
+                        // {
+                        //     id: "conversions",
+                        //     label: "Conversions",
+                        //     data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
+                        //     stack: "A",
+                        // },
                     ]}
                     height={250}
                     margin={{ left: 50, right: 0, top: 20, bottom: 20 }}

@@ -47,7 +47,7 @@ export default function PremiumLine() {
         <Card variant="outlined" sx={{ width: "100%" }}>
             <CardContent>
                 <Typography component="h2" variant="subtitle2" gutterBottom>
-                    Sessions
+                    Premium Budget
                 </Typography>
                 <Stack sx={{ justifyContent: "space-between" }}>
                     <Stack
@@ -67,7 +67,7 @@ export default function PremiumLine() {
                         variant="caption"
                         sx={{ color: "text.secondary" }}
                     >
-                        Sessions per day for the last 30 days
+                        Premium Budget for the last 30 days
                     </Typography>
                 </Stack>
                 <LineChart
@@ -81,8 +81,8 @@ export default function PremiumLine() {
                     ]}
                     series={[
                         {
-                            id: "direct",
-                            label: "Direct",
+                            id: "budget",
+                            label: "Budget",
                             showMark: false,
                             curve: "linear",
                             stack: "total",
@@ -96,8 +96,8 @@ export default function PremiumLine() {
                             ],
                         },
                         {
-                            id: "referral",
-                            label: "Referral",
+                            id: "premium",
+                            label: "Premium",
                             showMark: false,
                             curve: "linear",
                             stack: "total",
@@ -111,8 +111,8 @@ export default function PremiumLine() {
                             ],
                         },
                         {
-                            id: "organic",
-                            label: "Organic",
+                            id: "Premium-last",
+                            label: "Premium Last Year",
                             showMark: false,
                             curve: "linear",
                             stack: "total",

@@ -7,6 +7,7 @@ import {
     Typography,
     Button,
     useTheme,
+    Chip,
 } from "@mui/material";
 import {
     LineChart,
@@ -24,6 +25,7 @@ import {
 import Cvp from "./charts/Cvp";
 import data from "../data/data.json";
 import TypeBar from "./charts/TypeBar";
+import PremiumLine from "./charts/PremiumLine";
 
 const sessionsData = Array.from({ length: 30 }, (_, i) => ({
     date: `Apr ${i + 1}`,
@@ -55,12 +57,27 @@ const StatCard = ({ label, value, change, color }) => {
                 <Typography variant="subtitle2" color="text.secondary">
                     {label}
                 </Typography>
-                <Typography variant="h5" sx={{ mt: 1 }}>
-                    {value}
-                </Typography>
-                <Typography variant="body2" sx={{ color: colorMap[color] }}>
-                    {change}
-                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <Typography variant="h5" sx={{ mt: 1 }}>
+                        {value}
+                    </Typography>
+                    <Chip
+                        variant="outlined"
+                        sx={{
+                            color: colorMap[color],
+                            borderColor: colorMap[color],
+                        }}
+                        label={change}
+                    />
+                </Box>
+
+                <Typography variant="body2">Last 30 days</Typography>
             </CardContent>
         </Card>
     );
@@ -76,7 +93,7 @@ const Home = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={3}>
                         <StatCard
-                            label="Users"
+                            label="Premimum"
                             value="14k"
                             change="+25%"
                             color="green"
@@ -84,115 +101,32 @@ const Home = () => {
                     </Grid>
                     <Grid item xs={12} md={3}>
                         <StatCard
-                            label="Conversions"
+                            label="Total Claim"
                             value="325"
                             change="-25%"
                             color="red"
                         />
                     </Grid>
                     <Grid item xs={12} md={3}>
+                        <StatCard
+                            label="Claim Settlement"
+                            value="35"
+                            change="15%"
+                            color="yellow"
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <Typography variant="body1">
+                            Claims vs Premium{" "}
+                        </Typography>
+                        <Cvp />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                         <TypeBar />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Card variant="outlined" sx={{ height: "100%" }}>
-                            <CardContent>
-                                <Typography fontWeight={600}>
-                                    Explore your data
-                                </Typography>
-                                <Cvp />
-                            </CardContent>
-                        </Card>
-                    </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ height: 320 }}>
-                            <CardContent>
-                                <Typography variant="subtitle2">
-                                    Sessions
-                                </Typography>
-                                <Typography variant="h6" mb={1}>
-                                    13,277{" "}
-                                    <Typography component="span" color="green">
-                                        +35%
-                                    </Typography>
-                                </Typography>
-                                <ResponsiveContainer width="100%" height={200}>
-                                    <AreaChart data={sessionsData}>
-                                        <defs>
-                                            <linearGradient
-                                                id="colorValue"
-                                                x1="0"
-                                                y1="0"
-                                                x2="0"
-                                                y2="1"
-                                            >
-                                                <stop
-                                                    offset="5%"
-                                                    stopColor="#3f51b5"
-                                                    stopOpacity={0.5}
-                                                />
-                                                <stop
-                                                    offset="95%"
-                                                    stopColor="#3f51b5"
-                                                    stopOpacity={0}
-                                                />
-                                            </linearGradient>
-                                        </defs>
-                                        <XAxis dataKey="date" hide />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="value1"
-                                            stroke="#3f51b5"
-                                            fillOpacity={1}
-                                            fill="url(#colorValue)"
-                                        />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="value2"
-                                            stroke="#3f5125"
-                                            fillOpacity={1}
-                                            fill="url(#colorValue)"
-                                        />
-                                    </AreaChart>
-                                </ResponsiveContainer>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ height: 320 }}>
-                            <CardContent>
-                                <Typography variant="subtitle2">
-                                    Page views and downloads
-                                </Typography>
-                                <Typography variant="h6" mb={1}>
-                                    1.3M{" "}
-                                    <Typography component="span" color="error">
-                                        -8%
-                                    </Typography>
-                                </Typography>
-                                <ResponsiveContainer width="100%" height={200}>
-                                    <BarChart data={pageViewData}>
-                                        <XAxis dataKey="month" />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <Bar
-                                            dataKey="view"
-                                            stackId="a"
-                                            fill="#2196f3"
-                                        />
-                                        <Bar
-                                            dataKey="download"
-                                            stackId="a"
-                                            fill="#90caf9"
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </CardContent>
-                        </Card>
+                        <PremiumLine />
                     </Grid>
                 </Grid>
             </Box>
