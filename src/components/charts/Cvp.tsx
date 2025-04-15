@@ -30,14 +30,14 @@ function GaugePointer() {
     );
 }
 
-export default function Cvp() {
+export default function Cvp({ cvp }) {
     return (
         <GaugeContainer
             width={200}
             height={200}
             startAngle={-110}
             endAngle={110}
-            value={30}
+            value={cvp}
         >
             <GaugeReferenceArc />
             <GaugeValueArc />
