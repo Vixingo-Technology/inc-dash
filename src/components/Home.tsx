@@ -66,7 +66,7 @@ const Home = () => {
     const currentYear = dayjs();
     const [filterData, setFilterData] = useState(claimData);
 
-    const [startDate, setStartDate] = useState(dayjs("1990-01-01"));
+    const [startDate, setStartDate] = useState(dayjs("2024-04-01"));
     const [endDate, setEndDate] = useState(dayjs());
     const [totalClaim, setTotalClaim] = useState<number>(0);
     const [totalReq, setTotalReq] = useState<number>(0);
@@ -138,7 +138,7 @@ const Home = () => {
                             onChange={(value) => value && setStartDate(value)}
                             // defaultValue={dayjs("1990-01-01")}
                             openTo="year"
-                            views={["year", "month", "day"]}
+                            views={["year", "month"]}
                             yearsOrder="desc"
                             sx={{ width: { xs: "100%", md: "49%" } }}
                         />
@@ -152,7 +152,7 @@ const Home = () => {
                             value={endDate}
                             onChange={(value) => value && setEndDate(value)}
                             // defaultValue={dayjs()}
-                            views={["year", "month", "day"]}
+                            views={["year", "month"]}
                             yearsOrder="desc"
                             sx={{ width: { xs: "100%", md: "49%" } }}
                         />
