@@ -8,7 +8,10 @@ import {
     Button,
     useTheme,
     Chip,
+    TextField,
+    Autocomplete,
 } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import Cvp from "./charts/Cvp";
 import claimData from "../data/data.json";
 import TypeBar from "./charts/TypeBar";
@@ -72,7 +75,46 @@ const Home = () => {
     const [totalReq, setTotalReq] = useState<number>(0);
     const [totalClaimed, setTotalClaimed] = useState<number>(0);
     const [cvp, setCvp] = useState<number>(0);
+    const [value, setValue] = React.useState<{
+        label: string;
+        value: string;
+    } | null>(null);
 
+    const [selectedProducer, setSelectedProducer] = React.useState<{
+        label: string;
+        value: string;
+    } | null>(null);
+    const [selectedVendor, setSelectedVendor] = React.useState<{
+        label: string;
+        value: string;
+    } | null>(null);
+    const [vendorType, setVendorType] = useState("");
+    const [status, setStatus] = useState("");
+
+    const options = [
+        { label: "Customer1", value: "Customer1" },
+        { label: "Customer2", value: "Customer2" },
+        { label: "Customer3", value: "Customer3" },
+    ];
+    const producerOptions = [
+        { label: "Producer A", value: "producer_a" },
+        { label: "Producer B", value: "producer_b" },
+        { label: "Producer C", value: "producer_c" },
+    ];
+    const vendorOptions = [
+        { label: "Vendor X", value: "vendor_x" },
+        { label: "Vendor Y", value: "vendor_y" },
+        { label: "Vendor Z", value: "vendor_z" },
+    ];
+    const statusOptions = [
+        { label: "Active", value: "active" },
+        { label: "Inactive", value: "inactive" },
+    ];
+
+    const vendorTypeOptions = [
+        { label: "Local", value: "local" },
+        { label: "International", value: "international" },
+    ];
     // Calculate total claim amount whenever dates change
     useEffect(() => {
         if (startDate && endDate) {
@@ -138,7 +180,7 @@ const Home = () => {
                             onChange={(value) => value && setStartDate(value)}
                             // defaultValue={dayjs("1990-01-01")}
                             openTo="year"
-                            views={["year", "month"]}
+                            views={["year", "month", "day"]}
                             yearsOrder="desc"
                             sx={{ width: { xs: "100%", md: "49%" } }}
                         />
@@ -152,11 +194,108 @@ const Home = () => {
                             value={endDate}
                             onChange={(value) => value && setEndDate(value)}
                             // defaultValue={dayjs()}
-                            views={["year", "month"]}
+                            views={["year", "month", "day"]}
                             yearsOrder="desc"
                             sx={{ width: { xs: "100%", md: "49%" } }}
                         />
                     </LocalizationProvider>
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                    <Autocomplete
+                        options={options}
+                        getOptionLabel={(option) => option.label}
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Customer"
+                                variant="outlined"
+                            />
+                        )}
+                        isOptionEqualToValue={(option, value) =>
+                            option.value === value?.value
+                        }
+                    />
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                    {" "}
+                    <Autocomplete
+                        options={producerOptions}
+                        getOptionLabel={(option) => option.label}
+                        value={selectedProducer}
+                        onChange={(event, newValue) => {
+                            setSelectedProducer(newValue);
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Select a Producer"
+                                variant="outlined"
+                            />
+                        )}
+                        isOptionEqualToValue={(option, value) =>
+                            option.value === value?.value
+                        }
+                    />
+                </Box>
+                <Grid container spacing={2} mb={2}>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <InputLabel>Vendor Type</InputLabel>
+                            <Select
+                                value={vendorType}
+                                onChange={(e) => setVendorType(e.target.value)}
+                                label="Vendor Type"
+                            >
+                                <MenuItem value="manufacturer">
+                                    Manufacturer
+                                </MenuItem>
+                                <MenuItem value="wholesaler">
+                                    Wholesaler
+                                </MenuItem>
+                                <MenuItem value="retailer">Retailer</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <InputLabel>Status</InputLabel>
+                            <Select
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value)}
+                                label="Status"
+                            >
+                                <MenuItem value="active">Active</MenuItem>
+                                <MenuItem value="inactive">Inactive</MenuItem>
+                                <MenuItem value="pending">Pending</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                <Box sx={{ mb: 2 }}>
+                    {" "}
+                    <Autocomplete
+                        options={vendorOptions}
+                        getOptionLabel={(option) => option.label}
+                        value={selectedVendor}
+                        onChange={(event, newValue) => {
+                            setSelectedVendor(newValue);
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Select a Vendor"
+                                variant="outlined"
+                            />
+                        )}
+                        isOptionEqualToValue={(option, value) =>
+                            option.value === value?.value
+                        }
+                    />
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={3}>
